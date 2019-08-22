@@ -6,9 +6,25 @@ let dbObject = {
 
 document.getElementById('header').innerText = "YOUR TITLE GOES HERE";
 
-document.getElementById('carousel-1').src = "YOURCLOUDFUNCTION FOR GETTING AN IMAGE" || "images/penguins.jpg"
-document.getElementById('carousel-2').src = "YOURCLOUDFUNCTION FOR GETTING AN IMAGE" || "images/iceburg.jpg"
-document.getElementById('carousel-3').src = "YOURCLOUDFUNCTION FOR GETTING AN IMAGE" || "images/antarcticamountain.jpg"
+//this assumes your cloud function will return a value named address with the address to an image, in a cloud storage bucket
+async function setUpImages(){
+    let images = []
+    images.push(document.getElementById('carousel-1'))
+    images.push(document.getElementById('carousel-2'))
+    images.push(document.getElementById('carousel-3'))
+    images.forEach(async (value, index)=>{
+        //index is the numbered image in the carousel if that matters to you
+        let response = await fetch("YOURCLOUDFUNCTION FOR GETTING AN IMAGE")
+        
+    if(response.status <200 || response.status > 299){
+        value.src = "images/antarcticamountain.jpg"
+    } else {
+        data =  await response.body.json()
+        value.src = data["WHATEVER YOU NAMED THE FIELD IN YOUR RETURN"]
+    }
+    })
+}
+setUpImages()
 
 document.getElementById('calc-label').innerText = "YOU CALC LABEL TEXT"
 
@@ -31,40 +47,57 @@ function calcSubmit(event){
 
 
 async function buildTable (){
-    let objectResponse = await fetch("YOUR CLOUD FUNCTION URL FOR GETTING DATA")
-    if(objectResponse.status <200 || objectResponse.status >299){
+     
+     //let objectResponse = await fetch("https://us-central1-gcpproject-bert.cloudfunctions.net/function-1")
+       let objectResponse = await fetch("https://us-central1-gcpproject-bert.cloudfunctions.net/list-instances")
+ 
+     // let data = await objectResponse.json()
+     //console.log(data)
+
+     if(objectResponse.status <200 || objectResponse.status >299){
         let error =document.createElement('p')
         error.innerText = "Fetch Failed"
         document.getElementById('footer-table').appendChild(error)
-    }else {
+     }else {
         let objectList = await objectResponse.json()
-       
+        let numberCol = 0
         let headRow = document.createElement('tr')
         document.getElementById('object-table-head').appendChild(headRow)
         for(key in dbObject){
             let th = document.createElement('th')
+            //console.log(key)
             th.innerText = key
             th.className = 'object-table-data'
             headRow.appendChild(th)
+            numberCol += 1
         }
         
-        objectList = objectList.map((e)=>{
+        /*objectList = objectList.map((e)=>{
             let newe = {};
             for(key in dbObject){                
                 newe[key] = e[key]
             }
             return newe
-        })
+        })*/
+        
+        let col = numberCol
+        let row = 0
+        
         let tbody = document.getElementById('object-table-body')
-        objectList.forEach((v)=>{
-            let row = document.createElement('tr')
-            tbody.appendChild(row)
-            for(key in v){
-                let data = document.createElement('td')
-                data.innerText = v[key]
-                data.className = 'object-table-data'
-                row.appendChild(data)
+        Object.values(objectList).forEach(function(v) {
+           
+            if ( col == 0 || col == numberCol ){
+              row = document.createElement('tr')
+              tbody.appendChild(row)
+              col = numberCol
             }
+            
+            let data = document.createElement('td')
+            data.innerText = v
+            data.className = 'object-table-data'
+            row.appendChild(data)
+            col -= 1
+            
         })
         
     }
