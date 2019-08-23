@@ -5,7 +5,7 @@ let dbObject = {
     Price: ''
 }
 
-document.getElementById('header').innerText = "YOUR TITLE GOES HERE";
+document.getElementById('header').innerText = "REVATURE LIBRARY"
 
 //this assumes your cloud function will return a value named address with the address to an image, in a cloud storage bucket
 async function setUpImages(){
@@ -15,7 +15,7 @@ async function setUpImages(){
     images.push(document.getElementById('carousel-3'))
     
     //index is the numbered image in the carousel if that matters to you
-    let response = await fetch("https://us-central1-gcpproject-bert.cloudfunctions.net/get_images")
+    let response = await fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/get_images")
     datas =  await response.body.json()
     num = 0
 
@@ -26,15 +26,16 @@ async function setUpImages(){
         
     })
 }
+
 setUpImages()
 
-document.getElementById('calc-label').innerText = "YOU CALC LABEL TEXT"
+document.getElementById('calc-label').innerText = "Enter your age :"
 
-document.getElementById('calc-input').type = 'text' || "YOUR INPUT TYPE, REPLACE TEXT"
+document.getElementById('calc-input').type = 'text' || "number"
 
 function calcSubmit(event){
     event.preventDefault()
-    fetch("YOUR CALC CLOUD FUNCTION URL", {
+    fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/calc_function", {
         method: 'POST',
         body: JSON.stringify(document.getElementById('calc-input').value)
     })
@@ -50,8 +51,7 @@ function calcSubmit(event){
 
 async function buildTable (){
      
-     //let objectResponse = await fetch("https://us-central1-gcpproject-bert.cloudfunctions.net/function-1")
-       let objectResponse = await fetch("https://us-central1-gcpproject-bert.cloudfunctions.net/list-instances")
+       let objectResponse = await fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/list-instances")
  
      // let data = await objectResponse.json()
      //console.log(data)
@@ -141,7 +141,7 @@ function createObject(event){
         }
     }
     
-    fetch('YOUR CLOUD FUNCTION URL FOR CREATING A NEW OBJECT',{
+    fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/save_book",{
         method: 'POST',
         body: JSON.stringify(newObj)
     })

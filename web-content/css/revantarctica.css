@@ -16,7 +16,7 @@ body{
    width: 870px;
    position: absolute;
    left: 50%;
-   top: 45%;
+   top: 50%;
    transform: translate(-50%, -50%);
    justify-content: center;
    border: 8px #fd0000 solid;
@@ -27,7 +27,15 @@ body{
 .header-container{
     justify-content: center;
     display: flex;
-    border: 2px black solid;
+    border: 10px #6eacdf99 solid;
+    font-family:proxima-nova, sans-serif !important;
+    font-style: normal;
+    font-size: 30px;
+    font-weight:400;
+    letter-spacing: 3px;
+    color: #231f20;
+    text-transform: uppercase;
+    line-height: 1.5em;
 }
 
 .carousel{
@@ -36,8 +44,8 @@ body{
    justify-content: center;
    min-width: 50vw;
    max-width: 50vw;
-   margin: 20px 0 12px 30px;
-   padding: 10px 0 0 210px;
+   margin: 4px 0 12px 30px;
+   padding: 1px 20px 0 210px;
    background-color: #97101024;
 }
 
