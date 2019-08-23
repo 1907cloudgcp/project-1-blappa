@@ -5,6 +5,7 @@ let dbObject = {
     Price: ''
 }
 
+
 document.getElementById('header').innerText = "REVATURE LIBRARY"
 
 //this assumes your cloud function will return a value named address with the address to an image, in a cloud storage bucket
