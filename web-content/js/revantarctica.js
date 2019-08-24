@@ -1,12 +1,11 @@
 let dbObject = {
-    Title: '',	
     Author: '',
     Description: '',
-    Price: ''
+    Price: '',
+    Title: ''
 }
 
-
-document.getElementById('header').innerText = "REVATURE LIBRARY"
+document.getElementById('header').innerText = "LIBRARY";
 
 //this assumes your cloud function will return a value named address with the address to an image, in a cloud storage bucket
 async function setUpImages(){
@@ -30,9 +29,9 @@ async function setUpImages(){
 
 setUpImages()
 
-document.getElementById('calc-label').innerText = "Enter your age :"
+document.getElementById('calc-label').innerText = "NUMBER BOOKS"
 
-document.getElementById('calc-input').type = 'text' || "number"
+document.getElementById('calc-input').type = 'number'
 
 function calcSubmit(event){
     event.preventDefault()
@@ -40,21 +39,21 @@ function calcSubmit(event){
         method: 'POST',
         body: JSON.stringify(document.getElementById('calc-input').value)
     })
-    if(document.getElementById('calc-input').type === 'number'){
+   /* if(document.getElementById('calc-input').type === 'number'){
         document.getElementById('calc-input').value = 0
     } else {
         document.getElementById('calc-input').value = ''
     }
-
+*/
 }
 
 
 
 async function buildTable (){
      
-       let objectResponse = await fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/list-instances")
+     
+     let objectResponse = await fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/get_books")
  
-     // let data = await objectResponse.json()
      //console.log(data)
 
      if(objectResponse.status <200 || objectResponse.status >299){
@@ -63,7 +62,7 @@ async function buildTable (){
         document.getElementById('footer-table').appendChild(error)
      }else {
         let objectList = await objectResponse.json()
-        let numberCol = 0
+        //console.log(objectList)
         let headRow = document.createElement('tr')
         document.getElementById('object-table-head').appendChild(headRow)
         for(key in dbObject){
@@ -72,34 +71,21 @@ async function buildTable (){
             th.innerText = key
             th.className = 'object-table-data'
             headRow.appendChild(th)
-            numberCol += 1
         }
         
-        /*objectList = objectList.map((e)=>{
-            let newe = {};
-            for(key in dbObject){                
-                newe[key] = e[key]
-            }
-            return newe
-        })*/
-        
-        let col = numberCol
-        let row = 0
-        
+      
         let tbody = document.getElementById('object-table-body')
         Object.values(objectList).forEach(function(v) {
            
-            if ( col == 0 || col == numberCol ){
-              row = document.createElement('tr')
-              tbody.appendChild(row)
-              col = numberCol
-            }
-            
-            let data = document.createElement('td')
-            data.innerText = v
-            data.className = 'object-table-data'
-            row.appendChild(data)
-            col -= 1
+            let row = document.createElement('tr')
+            tbody.appendChild(row)
+
+            Object.entries(v).forEach(([key, value]) => {
+               let data = document.createElement('td')
+               data.innerText = value
+               data.className = 'object-table-data'
+               row.appendChild(data)
+            });
             
         })
         
@@ -135,6 +121,7 @@ function createObject(event){
     for(key in dbObject){
         let input = document.getElementById(`${key}id`)
         newObj[key] = input.value
+        console.log(newObj[key])
         if(input.type === 'number'){
             input.value = 0
         } else {
@@ -142,8 +129,12 @@ function createObject(event){
         }
     }
     
-    fetch("https://us-central1-gcproject-bert-1.cloudfunctions.net/save_book",{
+    fetch('https://us-central1-gcproject-bert-1.cloudfunctions.net/save_book',{
         method: 'POST',
+        headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+        },
         body: JSON.stringify(newObj)
     })
 }

@@ -3,7 +3,6 @@ html{
     width: 90vw;
 }
 
-
 body{
     display: flex;
     flex-direction: column;
@@ -28,30 +27,22 @@ body{
 .header-container{
     justify-content: center;
     display: flex;
-    border: 10px #6eacdf99 solid;
-    font-family:proxima-nova, sans-serif !important;
-    font-style: normal;
-    font-size: 30px;
-    font-weight:400;
-    letter-spacing: 3px;
-    color: #231f20;
-    text-transform: uppercase;
-    line-height: 1.5em;
+    border: 2px black solid;
 }
 
 .carousel{
    //border: 4px black solid;
    display: flex;
    justify-content: center;
-   min-width: 50vw;
-   max-width: 50vw;
-   margin: 4px 0 12px 30px;
-   padding: 1px 20px 0 210px;
+   min-width: 45vw;
+   max-width: 45vw;
+   margin: 30px 0 12px 30px;
+   padding: 10px 0 0 250px;
    background-color: #97101024;
 }
 
 .calc-container{
-    margin: 5px 0px 0px 12px;
+    margin: 5px 0px 35px 20px;
     padding: 5px 0 0 0px;
 }
 
@@ -60,14 +51,15 @@ body{
     display: flex;
     justify-content: space-between;
     width: 855px;
-    margin: 6px 0px 0px 0px;
+    margin: -30px 0px 0px 0px;
     padding: 0 0 0 5px;
 }
 
 .footer-form{
     //border: 4px #6eacdf99 solid;
     background-color: #b0ecdd;
-    width:20vw;
+    width:25vw;
+    padding: 0px 0px 0px 30px;
 }
 .accordion{
     max-width: 45vw;
@@ -75,7 +67,7 @@ body{
 
 #object-table{
     border: 4px #6eacdf99 solid;
-    margin: -1px 24px 2px 0;
+    margin: 0px 85px 0px 0;
 }
 #object-table-body{
     border: 4px #6eacdf99 solid;
