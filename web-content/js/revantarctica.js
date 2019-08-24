@@ -29,7 +29,7 @@ async function setUpImages(){
 
 setUpImages()
 
-document.getElementById('calc-label').innerText = "NUMBER BOOKS"
+document.getElementById('calc-label').innerText = "NUMBER OF BOOKS"
 
 document.getElementById('calc-input').type = 'number'
 
