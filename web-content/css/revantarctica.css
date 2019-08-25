@@ -34,7 +34,7 @@ body{
    //border: 4px black solid;
    display: flex;
    justify-content: center;
-   min-width: 45vw;
+   //min-width: 45vw;
    max-width: 45vw;
    margin: 30px 0 12px 30px;
    padding: 10px 0 0 250px;
@@ -67,7 +67,7 @@ body{
 
 #object-table{
     border: 4px #6eacdf99 solid;
-    margin: 0px 85px 0px 0;
+    margin: 0px 38px 0 38px;
 }
 #object-table-body{
     border: 4px #6eacdf99 solid;
